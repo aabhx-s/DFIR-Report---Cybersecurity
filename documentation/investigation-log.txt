@@ -1,0 +1,46 @@
+# DIGITAL FORENSIC INVESTIGATION LOG
+
+**Case ID:** DF-2026-TITAN  
+**Case Name:** Project Titan - Corporate Espionage & Firmware Exfiltration  
+**Classification:** Insider Threat / Unauthorized Intellectual Property Exfiltration  
+**Examiner:** Lead Digital Forensics Examiner  
+**Date Started:** November 18, 2026  
+
+---
+
+## 1. Case Background
+On November 15, 2026, AeroDyn Robotics internal Data Loss Prevention (DLP) telemetry detected unauthorized mass data staging on workstation `ENG-WS-09` assigned to lead engineer David Vance. Vance had recently tendered his resignation to join competitor Skyline Dynamics. 
+
+Corporate security detained Vance at the main facility turnstiles at 21:00 CST. A personal 16MB SanDisk USB flash drive was seized from his possession under company security protocol.
+
+## 2. Investigation Objectives
+- Determine whether proprietary navigation firmware or confidential R&D data was exfiltrated.
+- Examine active and deleted files on the evidence media.
+- Recover any deleted drafts, credentials, or encryption keys.
+- Extract web browser history and convert timestamps to establish intent.
+- Analyze image EXIF metadata to determine physical presence in restricted areas.
+- Reconstruct a comprehensive, minute-by-minute timeline of events.
+- Maintain strict chain of custody and forensic integrity.
+
+## 3. Workstation & Tool Preparation
+- Forensic Workstation: Windows 11 Enterprise (64-bit)
+- Forensic Analysis Suite: Autopsy v4.23.1
+- Forensic Imaging & Acquisition: FTK Imager v4.7
+- Database Examination: DB Browser for SQLite (v3.13)
+- Hash Calculation & Scripting: Windows PowerShell 5.1 / Python 3.15
+- Ingest Modules Configured in Autopsy:
+  * Recent Activity (Web history, OS artifacts)
+  * File Type Identification
+  * PhotoRec Carver (Unallocated space file carving)
+  * Picture Analyzer (EXIF metadata extraction)
+  * Keyword Search
+
+## 4. Evidence Inventory & Verification
+- **Evidence ID:** E002
+- **Description:** 16MB FAT16 raw forensic image of seized USB thumb drive.
+- **Original Source File:** `E002-vance-usb.dd`
+- **Working Copy:** `E002-vance-working.dd`
+- **Verification Hash (SHA-256):** `933E7EA05A87ECFD66313EC7AFE670A4B360932F7FE2BF1C0AD2C79CAC8A17BC`
+- **Integrity Status:** Original Verified: `True` | Working Copy Verified: `True`
+
+All forensic examinations are conducted strictly on `E002-vance-working.dd` to preserve the original image in pristine condition.

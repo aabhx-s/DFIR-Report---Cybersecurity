@@ -1,0 +1,176 @@
+# INVESTIGATION NOTES & FORENSIC FINDINGS
+
+**Case ID:** DF-2026-TITAN  
+**Case Name:** Project Titan - Corporate Espionage & Firmware Exfiltration  
+**Subject:** David Vance (Lead Firmware Engineer)  
+**Evidence ID:** E002  
+**Data Source:** E002-vance-working.dd  
+**Tool:** Autopsy 4.23.1, DB Browser for SQLite, Windows PowerShell  
+
+---
+
+## Finding 001 – Engineering Task Notes
+* **Source File:** `NOTES.TXT`
+* **File Path:** `/NOTES.TXT`
+* **Modified Timestamp:** `2026-11-14 20:15:00 CST`
+* **File Size:** 236 bytes
+
+**Observed Content:**
+```text
+AeroDyn Robotics - Autonomous Navigation Team Sprint 42
+Tasks:
+1. Review Kalman filter drift calibration on Titan v4.2.
+2. Update regression test suite for obstacle avoidance.
+3. Prepare clean code handover before personal leave.
+```
+
+**Investigator Interpretation:**
+The file contains standard engineering sprint notes relating to Project Titan v4.2 autonomous navigation. Item 3 references "clean code handover before personal leave", indicating the suspect was preparing to depart the company. At this point, the file supports the suspect's claim of legitimate work activities.
+
+---
+
+## Finding 002 – Communications Analysis
+* **Source File:** `SIGNAL.TXT`
+* **File Path:** `/SIGNAL.TXT`
+* **Modified Timestamp:** `2026-11-15 18:30:00 CST`
+* **File Size:** 386 bytes
+
+**Observed Content:**
+```text
+[18:22:10] Vortex_Recruiter: David, our executive team approved the package. $25k upfront sign-on bonus.
+[18:25:34] Vance: Understood. I will have the core Titan obstacle-avoidance firmware repo ready tonight.
+[18:28:12] Vortex_Recruiter: Make sure to purge logs and wipe the drive. Upload to the Proton link or leave in Terminal 2 locker.
+[18:30:00] Vance: Copying the repo now. Taking the 22:30 flight to Zurich.
+```
+
+**Investigator Interpretation:**
+This chat log directly refutes Vance's statement that he only copied study notes. The communication establishes:
+1. Active collusion with an external recruiter (`Vortex_Recruiter`) representing competitor interests.
+2. A financial incentive of \$25,000 upfront sign-on bonus in exchange for proprietary Titan navigation algorithms.
+3. Explicit instructions from the recruiter to purge logs, wipe the drive, and stage exfiltration via cloud or physical airport locker.
+4. An immediate flight plan departing for Zurich at 22:30 CST that same evening.
+
+---
+
+## Finding 003 – Transportation Evidence
+* **Source File:** `RECEIPT.TXT`
+* **File Path:** `/RECEIPT.TXT`
+* **Modified Timestamp:** `2026-11-15 20:45:00 CST`
+* **File Size:** 287 bytes
+
+**Observed Content:**
+```text
+AIRLINE E-TICKET CONFIRMATION
+Passenger: David Vance
+Flight: LX-0019 (Chicago O'Hare ORD -> Zurich ZRH)
+Departure: November 15, 2026 at 22:30 CST
+Seat: 14A (Single passenger, one-way)
+Booking Status: CONFIRMED - Boarding Pass Issued
+Payment: Credit Card ending in 4091
+```
+
+**Investigator Interpretation:**
+A confirmed international airline e-ticket corroborating the 22:30 flight referenced in `SIGNAL.TXT`. The destination (Zurich, Switzerland) aligns with the corporate headquarters of competitor Skyline Dynamics. The ticket was issued as a one-way fare, strongly indicating flight risk and permanent departure.
+
+---
+
+## Finding 004 – Photograph and EXIF Metadata Analysis
+* **Source File:** `SERVER.JPG`
+* **File Path:** `/SERVER.JPG`
+* **Modified Timestamp:** `2026-11-15 19:42:00 CST`
+* **File Size:** Variable (JPEG)
+
+**Observed Visual Content:**
+Server chassis racks labeled `AERODYN BLADE CHASSIS - RACK 04` and warning banner `CONFIDENTIAL - R&D LAB 04 - RESTRICTED ACCESS`.
+
+**EXIF Metadata Extracted via Autopsy:**
+* **Device Make:** `Forensic Camera`
+* **Device Model:** `Training Model`
+* **Software:** `AeroDyn Security V3`
+* **DateTimeOriginal:** `2026:11:15 19:42:00`
+
+**Investigator Interpretation:**
+The photograph visually confirms the physical presence of the suspect inside the restricted R&D Lab 04 server room at 19:42 CST, where raw master firmware images are archived. Physical access logs show badge `ENG-VANCE-44` swiping into Lab 04 at 19:40 CST.
+
+---
+
+## Finding 005 – Browser History Analysis
+* **Source File:** `HISTORY.DB`
+* **File Path:** `/HISTORY.DB`
+* **Modified Timestamp:** `2026-11-15 20:20:00 CST`
+* **Artifact Type:** Chromium SQLite 3 Database (`urls` table)
+
+**Recovered Browser Records (Converted from Chromium Microseconds to CST):**
+1. **19:05:00 CST** – `https://search.internal/q=skyline+dynamics+headquarters+zurich`  
+   *Title:* Skyline Dynamics - Autonomous Systems HQ
+2. **19:10:00 CST** – `https://proton.me/drive/u/0/shared-folder-upload`  
+   *Title:* Proton Drive - Secure Encrypted Storage
+3. **20:05:00 CST** – `https://cyber-tools.net/sandisk-secure-wiper-utility`  
+   *Title:* SanDisk USB Clean Eraser & Slack Wiper
+4. **20:15:00 CST** – `https://ohare.airport/flights/departures/LX0019`  
+   *Title:* Flight LX-0019 Departure Status - Chicago O'Hare
+
+**Investigator Interpretation:**
+The web history reconstructs the suspect's intent and technical preparation:
+* Researching the competitor's headquarters prior to exfiltration.
+* Accessing encrypted cloud drop storage (`proton.me`).
+* Searching for disk wiping tools (`sandisk-secure-wiper-utility`) to scrub the USB drive before departure.
+* Checking the flight status 30 minutes before booking the ticket.
+
+---
+
+## Finding 006 – Deleted File Recovery (Directory Table Method)
+* **Source File:** `_XFIL_KEY.TXT` (Suspected original name: `EXFIL_KEY.TXT`)
+* **File Path:** `/_XFIL_KEY.TXT`
+* **Recovery Method:** Autopsy 4.23.1 Deleted Files view (`0xE5` directory entry marker)
+* **Creation / Modified Timestamp:** `2026-11-15 20:18:00 CST`
+* **File Size:** 185 bytes
+
+**Observed Content:**
+```text
+TITAN_V4_FIRMWARE_ARCHIVE: Encrypted container key: Kx9#Titan99!Alpha
+Destination: Vortex drop portal.
+Handover: If upload fails, physical thumb drive left in Locker 42B at Terminal 2.
+```
+
+**Investigator Interpretation:**
+This is the central "smoking gun" of the investigation. Vance prepared an exfiltration handover note detailing:
+1. The exact AES decryption passphrase (`Kx9#Titan99!Alpha`) for the stolen Titan v4 firmware archive.
+2. The contingency drop location (Locker 42B at O'Hare Terminal 2).
+3. The file was deleted at 20:18 CST in an attempt to destroy evidence, but remained intact on unallocated clusters.
+
+---
+
+## Finding 007 – File Carving & Cryptographic Verification
+* **Carved File:** `f0000000.txt`
+* **Source:** `E002-vance-working.dd/$CarvedFiles/1/`
+* **Recovery Method:** Autopsy PhotoRec File Carver
+
+**Forensic Hash Comparison (Windows PowerShell):**
+Both `_XFIL_KEY.TXT` and `f0000000.txt` were exported to the workstation for independent hash verification.
+
+| Exported File | File Size | SHA-256 Digest | Match |
+| :--- | :--- | :--- | :---: |
+| `_XFIL_KEY.TXT` | 185 bytes | `D0B037817D141F7F47768BD9A20B4EB74D6B0D87B910502AC4F13A5A364E5E43` | **MATCH** |
+| `f0000000.txt` | 185 bytes | `D0B037817D141F7F47768BD9A20B4EB74D6B0D87B910502AC4F13A5A364E5E43` | **MATCH** |
+
+**Conclusion:**
+The SHA-256 digests are mathematically identical, proving that the carved unallocated stream corresponds byte-for-byte with the deleted directory entry.
+
+---
+
+## Finding 008 – Reconstructed Chronological Timeline
+
+| Timestamp (CST) | Source Artifact | Event Description |
+| :--- | :--- | :--- |
+| **Nov 14, 20:15:00** | `NOTES.TXT` | Suspect writes Sprint 42 notes mentioning handover. |
+| **Nov 15, 18:30:00** | `SIGNAL.TXT` | Recruiter offers \$25k; suspect agrees to exfiltrate Titan firmware. |
+| **Nov 15, 19:05:00** | `HISTORY.DB` | Web search for competitor Skyline Dynamics headquarters. |
+| **Nov 15, 19:10:00** | `HISTORY.DB` | Web access to Proton Drive secure file upload portal. |
+| **Nov 15, 19:42:00** | `SERVER.JPG` | Photo taken inside restricted R&D Lab 04 server room (EXIF). |
+| **Nov 15, 20:05:00** | `HISTORY.DB` | Web search for USB slack wiping utility. |
+| **Nov 15, 20:15:00** | `HISTORY.DB` | Web search for Flight LX-0019 departure status. |
+| **Nov 15, 20:18:00** | `_XFIL_KEY.TXT` | **Deleted handover note created and deleted** (Decryption key). |
+| **Nov 15, 20:45:00** | `RECEIPT.TXT` | Flight LX-0019 ticket confirmed (departing 22:30 CST). |
+| **Nov 15, 21:00:00** | Security Log | Suspect intercepted at exit turnstile; USB seized. |
+| **Nov 15, 22:30:00** | Scheduled Flight | Flight LX-0019 departs (suspect detained, flight missed). |

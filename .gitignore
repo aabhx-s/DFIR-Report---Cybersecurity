@@ -1,0 +1,7 @@
+# Autopsy lock & temporary files
+*.lck
+.lock*
+*.tmp
+__pycache__/
+*.pyc
+write.lock
